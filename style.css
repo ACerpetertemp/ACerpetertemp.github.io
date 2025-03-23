@@ -103,7 +103,7 @@ button:hover {
     margin-left: 20px;
     padding: 10px;
     border: 2px solid white;
-    max-height: 500px;
+    max-height: 400px;
     overflow-y: auto;
 }
 #export {
