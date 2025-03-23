@@ -234,7 +234,7 @@ boardSizeSelector.addEventListener('keydown', function(event) {
 }
 g=main();
 function checkCondition() {
-      if(gameState.moveCount<gameState.boardSize*gameState.boardSize){
+      if(gameState.moveCount<gameState.boardSize*gameState.boardSize-1){
         if(gameState.moveb<gameState.moveCount)
             {   
                 if(gameState.moveCount==0)
