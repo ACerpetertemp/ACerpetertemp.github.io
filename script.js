@@ -221,7 +221,8 @@ function recordClear() {
 }
 g=main();
 function checkCondition() {
-      if((gameState.moveCount<gameState.boardSize*gameState.boardSize-1)&&gameState.modee==2){
+    if(gameState.modee==2){
+      if((gameState.moveCount<gameState.boardSize*gameState.boardSize-1)){
         if(gameState.moveb<gameState.moveCount)
             {   
                 if(gameState.moveCount==0)
@@ -254,7 +255,7 @@ function checkCondition() {
 else {alert("即将开始新游戏");
     ModeChange(gameState.modee);
     return;
-}
+}}
 }
 
 function ModeChange(value) {
