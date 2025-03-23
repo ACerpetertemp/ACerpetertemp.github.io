@@ -196,20 +196,7 @@ function recordClear() {
     const historyContent = document.getElementById('history-content');
     historyContent.innerHTML = '';
 }
-boardSizeSelector.addEventListener('keydown', function(event) {
-    if (event.key === 'Enter') { 
-      this.value = parseInt(this.value); 
-      
-      if (isNaN(value) || value < 2) { 
-        this.value = 11; 
-        alert('您输入的不在有效范围内(2~20),已置为默认尺寸11');
-      } else if (value > 20) {
-        this.value = 11;
-        alert('您输入的不在有效范围内(2~20),已调整为默认尺寸11');
-      }
-    }
-    gameState.boardSize = parseInt(this.value);
-  });
+
   function main() {
     function getRandomInt(max) {
         return Math.floor(Math.random() * max);
@@ -264,11 +251,10 @@ function checkCondition() {
             }
     }
 }
-    else {
-        alert("即将开始新游戏");
-        ModeChange(gameState.modee);
-        return;
-    }
+else {alert("即将开始新游戏");
+    ModeChange(gameState.modee);
+    return;
+}
 }
 
 function ModeChange(value) {
@@ -283,12 +269,23 @@ function ModeChange(value) {
         }, 1000); 
     }
 }
-function temp(){
-    initGame(parseInt(boardSizeSelector.value));
-    ModeChange(gameState.modee);
-}
+boardSizeSelector.addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') { 
+      this.value = parseInt(this.value); 
+    //   alert(this.value);
+      if (isNaN(this.value) || this.value < 2) { 
+        this.value = 11; 
+        alert('您输入的不在有效范围内(2~20),已置为默认尺寸11');
+      } else if (this.value > 20) {
+        this.value = 11;
+        alert('您输入的不在有效范围内(2~20),已调整为默认尺寸11');
+      }
+      gameState.boardSize = parseInt(this.value);
+      initGame(parseInt(boardSizeSelector.value));
+      ModeChange(gameState.modee);
+    }
+});
 newGameButton.addEventListener('click', () => ModeChange(gameState.modee));
-boardSizeSelector.addEventListener('change', () => temp());
 qiziColor.addEventListener('change', () => qiziColorChange(parseInt(qiziColor.value)));
 zoom.addEventListener('change', () => zoomChange(parseInt(zoom.value)));
 Mode.addEventListener('change', () => ModeChange(parseInt(Mode.value)));
@@ -339,4 +336,11 @@ function handleFiles() {
   removeUploadedFile();
   return;
 }
-qiPu.addEventListener("change", handleFiles, false);
+function upfile(){
+    if(gameState.modee==2){
+        alert('人机模式下不可以上传棋谱');
+        return;
+    }
+    handleFiles();
+}
+qiPu.addEventListener("change", upfile, false);
