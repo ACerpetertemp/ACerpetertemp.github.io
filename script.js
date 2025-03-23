@@ -9,7 +9,8 @@ const gameState = {
     swapped: false,
     modee:1,
     moveb:-1,
-    usedPairs :new Set()
+    usedPairs :new Set(),
+    timeId: null
 };
 const body = document.body;
 const boardElement = document.getElementById('hex-board');
@@ -252,7 +253,8 @@ function checkCondition() {
             }
     }
 }
-else {alert("即将开始新游戏");
+else { clearInterval(gameState.timeId);
+    alert("即将开始新游戏");
     ModeChange(gameState.modee);
     return;
 }}
@@ -265,10 +267,7 @@ function ModeChange(value) {
         initGame(gameState.boardSize);
     }else{gameState.modee=2;
         initGame(gameState.boardSize);
-        setInterval(checkCondition, 1000);
-        setInterval(() => {
-            let f=0;
-        }, 1000); 
+        gameState.timeId=setInterval(checkCondition, 1000);
     }
 }
 boardSizeSelector.addEventListener('keydown', function(event) {
