@@ -304,12 +304,21 @@ const qiPu = document.getElementById("qipu");
 function removeUploadedFile() {
     qiPu.value = "";
   }
-function handleFiles() {
+function upfile(){
+    console.log("uploading");
+    if(gameState.modee==2){
+        removeUploadedFile();
+        alert('人机模式下不可以上传棋谱');
+        return;
+    }
+    console.log("begin ");
   const file = this.files[0]; 
   if(!file){
+    console.log("nothing in file");
     return;
   }
   if (file) {
+    console.log("handling file");
     gameState.fileInitGame=0;
     const reader = new FileReader();
     
@@ -336,12 +345,5 @@ function handleFiles() {
   }
   removeUploadedFile();
   return;
-}
-function upfile(){
-    if(gameState.modee==2){
-        alert('人机模式下不可以上传棋谱');
-        return;
-    }
-    handleFiles();
 }
 qiPu.addEventListener("change", upfile, false);
