@@ -270,22 +270,21 @@ function ModeChange(value) {
         gameState.timeId=setInterval(checkCondition, 1000);
     }
 }
-boardSizeSelector.addEventListener('keydown', function(event) {
-    if (event.key === 'Enter') { 
-      this.value = parseInt(this.value); 
-    //   alert(this.value);
-      if (isNaN(this.value) || this.value < 2) { 
-        this.value = 11; 
-        alert('您输入的不在有效范围内(2~20),已置为默认尺寸11');
-      } else if (this.value > 20) {
-        this.value = 11;
-        alert('您输入的不在有效范围内(2~20),已调整为默认尺寸11');
-      }
-      gameState.boardSize = parseInt(this.value);
-      initGame(parseInt(boardSizeSelector.value));
-      ModeChange(gameState.modee);
+function bss(p){
+    p = parseInt(p); 
+    if (isNaN(p) || p < 2) { 
+      p = 11; 
+      alert('您输入的不在有效范围内(2~20),已置为默认尺寸11');
+    } else if (p > 20) {
+      p = 11;
+      alert('您输入的不在有效范围内(2~20),已调整为默认尺寸11');
     }
-});
+    gameState.boardSize = parseInt(p);
+    boardSizeSelector.value=parseInt(p);
+    initGame(parseInt(boardSizeSelector.value));
+    ModeChange(gameState.modee);
+}
+boardSizeSelector.addEventListener('change', ()=> bss(boardSizeSelector.value));
 newGameButton.addEventListener('click', () => ModeChange(gameState.modee));
 qiziColor.addEventListener('change', () => qiziColorChange(parseInt(qiziColor.value)));
 zoom.addEventListener('change', () => zoomChange(parseInt(zoom.value)));
