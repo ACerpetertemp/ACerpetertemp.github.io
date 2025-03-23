@@ -9,13 +9,14 @@
 <body>
     <div class="main">
     <h1>Hex Game</h1>
-    <h5>A方需要连通上下两侧,B方需要连通左右两侧</h5>
+    <h4>A方需要连通上下两侧,B方需要连通左右两侧</h4>
     <div class="board-size-selector">
         <label id="board-size-label">棋盘大小(2~20): 
         <input min="2" max="20" id="board-size" name="board-size" type="number" /></label>
     </div>
     <div class="zoomClass">
         <div>tips:若出现棋盘边界未能显示,请增大padding</div>
+        <div>tips:这里人机对战模式机器是随机下的,没有加入任何博弈算法</div>
         <label id="zoom">padding(需要大于等于0): 
         <input min="0" id="zoomInput" name="zoomInput" type="number" /></label>
     </div>
