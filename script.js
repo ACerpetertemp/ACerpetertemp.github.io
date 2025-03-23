@@ -53,6 +53,31 @@ function zoomChange(paddingValue)
     gameState.adjust=paddingValue;
     body.style.padding = `${paddingValue}px`;
 }
+function handleCellClick(row, col,p) {
+    if ((gameState.board[row][col] !== null && gameState.moveCount !== 1)) {
+        return;
+    }
+    if((p===0 && gameState.modee===2 ) && gameState.currentPlayer==='red')
+    {
+        return;
+    }
+    let inputPair = JSON.stringify([row, col]);
+    gameState.usedPairs.add(inputPair);
+    console.log("Setadd1");
+    console.log(inputPair);
+    gameState.moveCount++;//这个不能往后放，很关键
+    recordMove(row, col, gameState.currentPlayer);
+    if((gameState.board[row][col] !== null && gameState.moveCount === 2))
+    {
+        swapPlayers();
+        return;
+    }
+    gameState.board[row][col] = gameState.currentPlayer;
+    const cell = document.querySelector(`.hex-cell[data-row="${row}"][data-col="${col}"]`);
+    cell.classList.add(gameState.currentPlayer);
+    gameState.currentPlayer = gameState.currentPlayer === 'red' ? 'blue' : 'red';
+    updateGameStatus();
+}
 function initGame(size) {
     gameState.usedPairs.clear();
     gameState.fileInitGame=1;
@@ -83,29 +108,7 @@ function initGame(size) {
 }
 
 
-function handleCellClick(row, col,p) {
-    if ((gameState.board[row][col] !== null && gameState.moveCount !== 1)) {
-        return;
-    }
-    if((p===0 && gameState.modee===2 ) && gameState.currentPlayer==='red')
-    {
-        return;
-    }
-    let inputPair = JSON.stringify([col, row]);
-    gameState.usedPairs.add(inputPair);
-    gameState.moveCount++;//这个不能往后放，很关键
-    recordMove(row, col, gameState.currentPlayer);
-    if((gameState.board[row][col] !== null && gameState.moveCount === 2))
-    {
-        swapPlayers();
-        return;
-    }
-    gameState.board[row][col] = gameState.currentPlayer;
-    const cell = document.querySelector(`.hex-cell[data-row="${row}"][data-col="${col}"]`);
-    cell.classList.add(gameState.currentPlayer);
-    gameState.currentPlayer = gameState.currentPlayer === 'red' ? 'blue' : 'red';
-    updateGameStatus();
-}
+
 function withDraw(num) {
     while (gameState.moveCount > num) {
         // alert(`正在处理第${gameState.moveCount}步`);
@@ -140,11 +143,17 @@ function swapPlayers() {
         return;
     }
     gameState.swapped = true;
+    gameState.usedPairs.clear();
+    console.log("pairclear");
     for (let row = 0; row < gameState.boardSize; row++) {
         for (let col = 0; col < gameState.boardSize; col++) {
             if (gameState.board[row][col] === 'red') {
                 gameState.board[row][col] = null;
                 gameState.board[col][row] = 'blue';
+                let inputPair = JSON.stringify([col, row]);
+                console.log("Setadd2");
+                console.log(inputPair);
+                gameState.usedPairs.add(inputPair);
                 const cell = document.querySelector(`.hex-cell[data-row="${row}"][data-col="${col}"]`);
                 cell.classList.remove('red');
                 const cell2 = document.querySelector(`.hex-cell[data-row="${col}"][data-col="${row}"]`);
@@ -211,7 +220,9 @@ function recordClear() {
             pair = JSON.stringify([a, b]);
         } while (gameState.usedPairs.has(pair)); 
 
-        gameState.usedPairs.add(pair); 
+        // gameState.usedPairs.add(pair); 
+        // console.log("Setadd2");
+        // console.log(pair);
         return JSON.parse(pair); 
     }
     // function clearUsedPairs() {
@@ -238,13 +249,19 @@ function checkCondition() {
                 q=document.getElementsByClassName("step"+gameState.moveCount)[0].dataset.col;
                 p=parseInt(p);
                 q=parseInt(q);
-                let inputPair = JSON.stringify([p, q]);
-                gameState.usedPairs.add(inputPair);
-                if(gameState.usedPairs.size==1)
-                {gameState.usedPairs.delete([p,q]);
-                gameState.usedPairs.add([q,p]);
+                // let inputPair = JSON.stringify([p, q]);
+                // gameState.usedPairs.add(inputPair);
+                // console.log("Setadd3");
+                // console.log(inputPair);
+                // if(gameState.usedPairs.size==1)
+                // {gameState.usedPairs.delete([p,q]);
+                // console.log("del Set");
+                // console.log([p,q]);
+                // gameState.usedPairs.add([q,p]);
+                // console.log("Setadd4");
+                // console.log([q,p]);
 
-                }
+                // }
                 [x,y]=g();
                 console.log(x,y);
                 handleCellClick(x,y,1);
