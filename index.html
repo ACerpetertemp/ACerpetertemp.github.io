@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hex Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="main">
+    <h1>Hex Game</h1>
+    <h5>A方需要连通上下两侧,B方需要连通左右两侧</h5>
+    <div class="board-size-selector">
+        <label id="board-size-label">棋盘大小(2~20): 
+        <input min="2" max="20" id="board-size" name="board-size" type="number" /></label>
+    </div>
+    <div class="zoomClass">
+        <div>tips:若出现棋盘边界未能显示,请增大padding</div>
+        <label id="zoom">padding(需要大于等于0): 
+        <input min="0" id="zoomInput" name="zoomInput" type="number" /></label>
+    </div>
+    <label for="qizi-color">棋子颜色：</label>
+    <select id="qizi-color">
+        <option value="6">A红B蓝</option>
+        <option value="7">A蓝B红</option>
+        <option value="8">A黑B白</option>
+        <option value="9">A白B黑</option>
+    </select>
+    <label for="mode">人机模式</label>
+    <select id="mode">
+        <option value="1">双人对战</option>
+        <option value="2">人机对战</option>
+    </select>
+
+    <div class="game-container">
+        <div class="game-info" id="game-status">A方回合</div>
+        <div id="hex-board"></div>
+        <div class="controls">
+            <button id="new-game" class="new-game">清空棋盘</button>
+        </div>
+    </div>
+    </div>
+    <div class="history">
+        <h3>上传棋谱</h3>
+        <input id="qipu" type="file" accept="text/*" name="file"/>
+        <h3>导出棋谱</h3>
+        <div class="exportclass">
+            <button id="export">导出棋谱</button>
+        </div>
+        <h3>棋谱</h3>
+    <div id="move-history">
+        <div id="history-content"></div>
+    </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
