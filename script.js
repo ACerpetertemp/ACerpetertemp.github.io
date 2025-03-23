@@ -267,6 +267,7 @@ function checkCondition() {
     else {
         alert("即将开始新游戏");
         ModeChange(gameState.modee);
+        return;
     }
 }
 
